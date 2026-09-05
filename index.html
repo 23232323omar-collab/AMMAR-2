@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>HAPPY BIRTHDAY — DROP THE BEAT</title>
+<link rel="icon" href="data:,">
+
+<!-- ============================================================
+     ✏️ CUSTOMIZE HERE — edit these two lines with your friend's info
+     ============================================================ -->
+<script>
+  window.BDAY_CONFIG = {
+    name: "AMMAR",                       // اسم صاحب/ة عيد الميلاد
+    message: "من أول يوم عرفتك وإنت نمبر وان في حياتي 🔥 كل سنة وإنت أحلى وأقوى وأجنن. النهاردة يومك، فخليه ناري زيك بالظبط. بحبك يا صاحبتي ❤️", 
+    fromName: "من صاحبك الي بيحبك"      // توقيع الرسالة
+  };
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Permanent+Marker&family=Archivo+Black&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#0b0b12;
+    --paper:#f5efe0;
+    --acid:#d4ff3f;
+    --hotpink:#ff2fa0;
+    --electric:#2fd8ff;
+    --violet:#9b5cff;
+    --orange:#ff6a1a;
+    --spray-shadow: 6px 6px 0px var(--ink);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Poppins',sans-serif;
+    overflow-x:hidden;
+    cursor:none;
+    position:relative;
+  }
+  ::selection{background:var(--hotpink);color:var(--ink);}
+
+  /* ============ CUSTOM CURSOR ============ */
+  #cursor-dot, #cursor-ring{
+    position:fixed;top:0;left:0;pointer-events:none;z-index:9999;
+    border-radius:50%;transform:translate(-50%,-50%);
+    mix-blend-mode:difference;
+  }
+  #cursor-dot{width:8px;height:8px;background:var(--acid);}
+  #cursor-ring{width:38px;height:38px;border:2px solid var(--acid);transition:width .15s,height .15s,border-color .2s;}
+  body.cursor-active #cursor-ring{width:64px;height:64px;border-color:var(--hotpink);}
+  @media(hover:none){ #cursor-dot,#cursor-ring{display:none;} body{cursor:auto;} }
+
+  /* ============ LOADER ============ */
+  #loader{
+    position:fixed;inset:0;background:var(--ink);z-index:10000;
+    display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;
+  }
+  #loader h2{
+    font-family:'Anton',sans-serif;font-size:clamp(28px,6vw,60px);letter-spacing:2px;
+    color:var(--paper);
+  }
+  #loader .bar{width:min(60vw,360px);height:8px;background:#222;border-radius:6px;overflow:hidden;border:2px solid var(--paper);}
+  #loader .fill{height:100%;width:0%;background:linear-gradient(90deg,var(--acid),var(--hotpink));}
+
+  /* ============ 3D CANVAS BG ============ */
+  #scene-canvas{position:fixed;inset:0;z-index:0;}
+
+  section{position:relative;z-index:2;}
+
+  /* ============ HERO ============ */
+  #hero{
+    height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;position:relative;overflow:hidden;
+  }
+  .kicker{
+    font-family:'Permanent Marker',cursive;color:var(--electric);font-size:clamp(16px,2.4vw,22px);
+    transform:rotate(-3deg);margin-bottom:6px;
+  }
+  #hero h1{
+    font-family:'Anton',sans-serif;
+    font-size:clamp(52px,13vw,180px);
+    line-height:0.88;
+    letter-spacing:-2px;
+    color:var(--paper);
+    -webkit-text-stroke:2px var(--ink);
+    text-shadow: var(--spray-shadow);
+    position:relative;
+  }
+  #hero h1 span{display:block;}
+  #hero h1 .glitchword{
+    color:var(--hotpink);
+    display:inline-block;
+    position:relative;
+  }
+  #hero h1 .glitchword::before,
+  #hero h1 .glitchword::after{
+    content:attr(data-text);
+    position:absolute;left:0;top:0;width:100%;
+    clip-path: inset(0 0 0 0);
+  }
+  .glitching::before{
+    color:var(--electric);
+    animation: glitchTop 2.6s infinite linear;
+  }
+  .glitching::after{
+    color:var(--acid);
+    animation: glitchBottom 3.1s infinite linear;
+  }
+  @keyframes glitchTop{
+    0%,90%,100%{clip-path:inset(0 0 95% 0);transform:translate(0,0);}
+    91%{clip-path:inset(0 0 60% 0);transform:translate(-4px,-2px);}
+    93%{clip-path:inset(20% 0 40% 0);transform:translate(4px,1px);}
+    95%{clip-path:inset(60% 0 5% 0);transform:translate(-3px,2px);}
+  }
+  @keyframes glitchBottom{
+    0%,90%,100%{clip-path:inset(95% 0 0 0);transform:translate(0,0);}
+    91%{clip-path:inset(40% 0 30% 0);transform:translate(4px,2px);}
+    94%{clip-path:inset(10% 0 70% 0);transform:translate(-4px,-1px);}
+    96%{clip-path:inset(70% 0 5% 0);transform:translate(3px,-2px);}
+  }
+  .tag-line{
+    margin-top:22px;font-family:'Bangers',cursive;letter-spacing:1px;
+    font-size:clamp(18px,2.6vw,28px);color:var(--paper);
+    background:var(--violet);display:inline-block;padding:8px 22px;
+    transform:rotate(2deg);border:3px solid var(--ink);box-shadow:var(--spray-shadow);
+  }
+  .scroll-hint{
+    position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+    font-family:'Poppins';font-size:13px;letter-spacing:3px;color:var(--paper);opacity:.7;
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+  }
+  .scroll-hint .arrow{width:2px;height:34px;background:var(--paper);position:relative;overflow:hidden;}
+  .scroll-hint .arrow::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--acid);animation:dropline 1.6s infinite;}
+  @keyframes dropline{to{top:100%;}}
+
+  /* ============ SPRAY MARQUEE ============ */
+  .marquee-wrap{overflow:hidden;background:var(--acid);border-top:4px solid var(--ink);border-bottom:4px solid var(--ink);padding:18px 0;transform:rotate(-1.5deg) scale(1.03);margin:60px 0;}
+  .marquee-track{display:flex;width:max-content;gap:40px;animation:marquee 18s linear infinite;}
+  .marquee-track span{
+    font-family:'Archivo Black',sans-serif;font-size:clamp(28px,5vw,54px);color:var(--ink);
+    white-space:nowrap;
+  }
+  @keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* ============ SECTION HEADERS ============ */
+  .section-pad{padding:90px 6vw;max-width:1300px;margin:0 auto;}
+  .section-title{
+    font-family:'Anton',sans-serif;font-size:clamp(34px,7vw,84px);line-height:0.95;
+    color:var(--paper);margin-bottom:18px;
+  }
+  .section-title .hl{color:var(--ink);background:var(--electric);padding:0 10px;box-decoration-break:clone;-webkit-box-decoration-break:clone;transform:inline-block;}
+  .section-sub{font-family:'Permanent Marker',cursive;color:var(--orange);font-size:clamp(16px,2vw,20px);margin-bottom:50px;transform:rotate(-1deg);display:inline-block;}
+
+  /* ============ TILT CARDS (memories) ============ */
+  .cards-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:34px;
+    perspective:1200px;
+  }
+  .tilt-card{
+    position:relative;border-radius:18px;border:3px solid var(--ink);
+    background:linear-gradient(150deg,var(--violet),var(--hotpink));
+    padding:30px 24px;min-height:260px;display:flex;flex-direction:column;justify-content:flex-end;
+    box-shadow:var(--spray-shadow);transform-style:preserve-3d;will-change:transform;
+    transition:box-shadow .2s;
+  }
+  .tilt-card:nth-child(2){background:linear-gradient(150deg,var(--electric),var(--violet));}
+  .tilt-card:nth-child(3){background:linear-gradient(150deg,var(--acid),var(--orange));}
+  .tilt-card:nth-child(4){background:linear-gradient(150deg,var(--orange),var(--hotpink));}
+  .tilt-card .emoji{font-size:52px;transform:translateZ(60px);margin-bottom:16px;}
+  .tilt-card h3{font-family:'Bangers',cursive;font-size:26px;color:var(--ink);transform:translateZ(50px);letter-spacing:1px;}
+  .tilt-card p{font-family:'Poppins';font-size:14px;color:var(--ink);opacity:.85;margin-top:8px;transform:translateZ(40px);}
+  .tilt-card .shine{position:absolute;inset:0;border-radius:16px;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.35),transparent 60%);opacity:0;transition:opacity .2s;pointer-events:none;}
+  .tilt-card:hover .shine{opacity:1;}
+
+  /* ============ FINALE ============ */
+  #finale{
+    min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;position:relative;overflow:hidden;
+  }
+  #dropBtn{
+    font-family:'Anton',sans-serif;font-size:clamp(20px,3.4vw,38px);letter-spacing:1px;
+    color:var(--ink);background:var(--acid);border:4px solid var(--ink);
+    padding:26px 52px;border-radius:100px;cursor:none;position:relative;z-index:3;
+    box-shadow:0 0 0 var(--ink), 10px 10px 0 var(--ink);
+    transition:transform .15s, box-shadow .15s;
+  }
+  #dropBtn:hover{transform:translate(-4px,-4px);box-shadow:14px 14px 0 var(--ink);}
+  #dropBtn:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--ink);}
+  #dropBtn.pulsing{animation:pulseGlow 1.4s infinite;}
+  @keyframes pulseGlow{
+    0%,100%{box-shadow:0 0 0 0 rgba(212,255,63,.6), 10px 10px 0 var(--ink);}
+    50%{box-shadow:0 0 0 26px rgba(212,255,63,0), 10px 10px 0 var(--ink);}
+  }
+
+  #revealCard{
+    display:none;margin-top:60px;max-width:640px;width:88vw;background:var(--paper);
+    border:5px solid var(--ink);border-radius:22px;padding:48px 34px;position:relative;z-index:3;
+    box-shadow:16px 16px 0 var(--hotpink);
+  }
+  #revealCard h2{font-family:'Permanent Marker',cursive;color:var(--violet);font-size:clamp(30px,5vw,44px);margin-bottom:18px;}
+  #revealCard p#msgText{font-family:'Poppins';font-weight:600;color:var(--ink);font-size:clamp(15px,2.1vw,19px);line-height:1.7;}
+  #revealCard .sign{margin-top:22px;font-family:'Bangers',cursive;color:var(--orange);font-size:20px;}
+
+  #flash{position:fixed;inset:0;background:var(--acid);opacity:0;pointer-events:none;z-index:5000;}
+
+  footer{text-align:center;padding:40px 20px 60px;font-family:'Poppins';font-size:13px;color:#8a8a99;position:relative;z-index:2;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;}
+  }
+</style>
+</head>
+<body>
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<div id="flash"></div>
+
+<div id="loader">
+  <h2>LOADING THE PARTY 🎉</h2>
+  <div class="bar"><div class="fill" id="loadFill"></div></div>
+</div>
+
+<canvas id="scene-canvas"></canvas>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="kicker">// IT'S FINALLY HERE //</div>
+  <h1>
+    <span>HAPPY</span>
+    <span class="glitchword glitching" data-text="BIRTHDAY">BIRTHDAY</span>
+    <span id="heroName">AMMAR</span>
+  </h1>
+  <div class="tag-line">TURN THE VOLUME UP 🔊 SCROLL DOWN</div>
+  <div class="scroll-hint"><div class="arrow"></div>SCROLL</div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marqueeTrack">
+    <span>★ HAPPY BIRTHDAY ★ LEGEND STATUS UNLOCKED ★ LEVEL UP ★ MAIN CHARACTER ENERGY ★ </span>
+    <span>★ HAPPY BIRTHDAY ★ LEGEND STATUS UNLOCKED ★ LEVEL UP ★ MAIN CHARACTER ENERGY ★ </span>
+  </div>
+</div>
+
+<!-- MEMORIES / TILT CARDS -->
+<section id="memories" class="section-pad">
+  <h2 class="section-title">FOUR REASONS <span class="hl">YOU'RE THE ONE</span></h2>
+  <div class="section-sub">tilt your mouse over the cards 👀</div>
+  <div class="cards-grid">
+    <div class="tilt-card"><div class="shine"></div><div class="emoji">🔥</div><h3>UNSTOPPABLE</h3><p>You bring chaos-good-energy to every single room you walk into.</p></div>
+    <div class="tilt-card"><div class="shine"></div><div class="emoji">💎</div><h3>ONE OF ONE</h3><p>There's genuinely nobody built like you. Not one single soul.</p></div>
+    <div class="tilt-card"><div class="shine"></div><div class="emoji">🚀</div><h3>LEVELING UP</h3><p>Another year, another glow-up. You're only getting scarier (in a good way).</p></div>
+    <div class="tilt-card"><div class="shine"></div><div class="emoji">❤️</div><h3>LOVED. PERIOD.</h3><p>Every single person in your life is lucky to know you. Full stop.</p></div>
+  </div>
+</section>
+
+<!-- FINALE -->
+<section id="finale" class="section-pad">
+  <h2 class="section-title">READY FOR <span class="hl">THE DROP?</span></h2>
+  <div class="section-sub">this button is not a drill</div>
+  <button id="dropBtn" class="pulsing">🎉 DROP THE BEAT</button>
+
+  <div id="revealCard">
+    <h2>HAPPY BIRTHDAY <span id="cardName">AMMAR</span> 🎂</h2>
+    <p id="msgText"></p>
+    <div class="sign" id="cardFrom"></div>
+  </div>
+</section>
+
+<footer>made with chaos, glitter & way too much love ✨</footer>
+
+<!-- ================= LIBRARIES (CDN) ================= -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
+
+<script>
+/* ============================================================
+   INJECT NAME / MESSAGE FROM CONFIG
+============================================================ */
+document.getElementById('heroName').textContent = window.BDAY_CONFIG.name;
+document.getElementById('cardName').textContent = window.BDAY_CONFIG.name;
+document.getElementById('msgText').textContent = window.BDAY_CONFIG.message;
+document.getElementById('cardFrom').textContent = "— " + window.BDAY_CONFIG.fromName;
+document.title = "HAPPY BIRTHDAY " + window.BDAY_CONFIG.name + " 🎉";
+
+/* ============================================================
+   LOADER
+============================================================ */
+window.addEventListener('load', () => {
+  gsap.to('#loadFill', {width:'100%', duration:1.1, ease:'power2.inOut', onComplete(){
+    gsap.to('#loader', {opacity:0, duration:.6, delay:.15, onComplete(){
+      document.getElementById('loader').style.display='none';
+      playIntro();
+    }});
+  }});
+});
+
+/* ============================================================
+   CUSTOM CURSOR
+============================================================ */
+const dot = document.getElementById('cursor-dot');
+const ring = document.getElementById('cursor-ring');
+let mx=innerWidth/2,my=innerHeight/2, rx=mx, ry=my;
+window.addEventListener('mousemove', e=>{
+  mx=e.clientX; my=e.clientY;
+  dot.style.left=mx+'px'; dot.style.top=my+'px';
+});
+(function loopRing(){
+  rx += (mx-rx)*0.16; ry += (my-ry)*0.16;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(loopRing);
+})();
+document.querySelectorAll('a,button,.tilt-card').forEach(el=>{
+  el.addEventListener('mouseenter', ()=>document.body.classList.add('cursor-active'));
+  el.addEventListener('mouseleave', ()=>document.body.classList.remove('cursor-active'));
+});
+
+/* ============================================================
+   THREE.JS SCENE — floating cake, balloons, glowing shapes
+============================================================ */
+const canvas = document.getElementById('scene-canvas');
+const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(55, innerWidth/innerHeight, 0.1, 100);
+camera.position.set(0,0,14);
+
+scene.add(new THREE.AmbientLight(0xffffff,0.55));
+const key = new THREE.PointLight(0xff2fa0, 2.2, 40); key.position.set(6,8,10); scene.add(key);
+const key2 = new THREE.PointLight(0x2fd8ff, 2.2, 40); key2.position.set(-8,-4,10); scene.add(key2);
+
+// ---- Cake (built from primitives) ----
+const cakeGroup = new THREE.Group();
+const layerColors = [0xff6a1a, 0xff2fa0, 0xd4ff3f];
+const layerRadii = [2.2, 1.6, 1.05];
+let yOff = -2.4;
+layerRadii.forEach((r,i)=>{
+  const h = 1.05;
+  const geo = new THREE.CylinderGeometry(r, r*1.05, h, 32);
+  const mat = new THREE.MeshStandardMaterial({color:layerColors[i], roughness:.35, metalness:.15});
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.position.y = yOff + h/2;
+  cakeGroup.add(mesh);
+  // frosting ring
+  const ringGeo = new THREE.TorusGeometry(r*1.02, 0.09, 12, 40);
+  const ringMat = new THREE.MeshStandardMaterial({color:0xffffff, roughness:.4});
+  const ring = new THREE.Mesh(ringGeo, ringMat);
+  ring.rotation.x = Math.PI/2;
+  ring.position.y = yOff + h;
+  cakeGroup.add(ring);
+  yOff += h;
+});
+// candles
+for(let i=0;i<5;i++){
+  const angle = (i/5)*Math.PI*2;
+  const cx = Math.cos(angle)*0.55, cz = Math.sin(angle)*0.55;
+  const candle = new THREE.Mesh(new THREE.CylinderGeometry(0.05,0.05,0.5,10), new THREE.MeshStandardMaterial({color:0xffffff}));
+  candle.position.set(cx, yOff+0.25, cz);
+  cakeGroup.add(candle);
+  const flame = new THREE.Mesh(new THREE.SphereGeometry(0.09,10,10), new THREE.MeshStandardMaterial({color:0xffcf3f, emissive:0xff9900, emissiveIntensity:1.8}));
+  flame.position.set(cx, yOff+0.56, cz);
+  cakeGroup.add(flame);
+}
+cakeGroup.scale.set(0.85,0.85,0.85);
+cakeGroup.position.set(2.6,-0.8,-2);
+scene.add(cakeGroup);
+
+// ---- Balloons ----
+const balloonGroup = new THREE.Group();
+const balloonColors = [0xff2fa0,0x2fd8ff,0xd4ff3f,0x9b5cff,0xff6a1a];
+const balloons = [];
+for(let i=0;i<9;i++){
+  const color = balloonColors[i % balloonColors.length];
+  const geo = new THREE.SphereGeometry(0.55,20,20);
+  geo.scale(1,1.25,1);
+  const mat = new THREE.MeshStandardMaterial({color, roughness:.25, metalness:.1, emissive:color, emissiveIntensity:.12});
+  const balloon = new THREE.Mesh(geo, mat);
+  const spread = 9;
+  balloon.position.set((Math.random()-0.5)*spread, (Math.random()-0.5)*spread*0.7, (Math.random()-0.5)*6 - 3);
+  balloon.userData.speed = 0.15 + Math.random()*0.25;
+  balloon.userData.phase = Math.random()*Math.PI*2;
+  balloonGroup.add(balloon);
+  balloons.push(balloon);
+}
+scene.add(balloonGroup);
+
+// ---- Floating glowing geometric shapes (confetti-ish) ----
+const shapeGroup = new THREE.Group();
+const shapes = [];
+for(let i=0;i<16;i++){
+  const geo = Math.random()>0.5 ? new THREE.IcosahedronGeometry(0.28,0) : new THREE.OctahedronGeometry(0.28,0);
+  const color = balloonColors[i % balloonColors.length];
+  const mat = new THREE.MeshStandardMaterial({color, emissive:color, emissiveIntensity:.6, roughness:.3});
+  const m = new THREE.Mesh(geo, mat);
+  m.position.set((Math.random()-0.5)*16, (Math.random()-0.5)*10, (Math.random()-0.5)*8-2);
+  m.userData.spin = (Math.random()-0.5)*0.02;
+  m.userData.speed = 0.1+Math.random()*0.2;
+  m.userData.phase = Math.random()*Math.PI*2;
+  shapeGroup.add(m);
+  shapes.push(m);
+}
+scene.add(shapeGroup);
+
+// ---- Starfield particles ----
+const starGeo = new THREE.BufferGeometry();
+const starCount = 400;
+const starPos = new Float32Array(starCount*3);
+for(let i=0;i<starCount;i++){
+  starPos[i*3]=(Math.random()-0.5)*40;
+  starPos[i*3+1]=(Math.random()-0.5)*40;
+  starPos[i*3+2]=(Math.random()-0.5)*40-10;
+}
+starGeo.setAttribute('position', new THREE.BufferAttribute(starPos,3));
+const starMat = new THREE.PointsMaterial({color:0xffffff, size:0.05, transparent:true, opacity:.6});
+const stars = new THREE.Points(starGeo, starMat);
+scene.add(stars);
+
+// mouse parallax
+let targetRotX=0, targetRotY=0;
+window.addEventListener('mousemove', e=>{
+  targetRotY = (e.clientX/innerWidth - 0.5) * 0.6;
+  targetRotX = (e.clientY/innerHeight - 0.5) * 0.4;
+});
+
+let scrollT = 0;
+window.addEventListener('scroll', ()=>{
+  scrollT = window.scrollY / (document.body.scrollHeight - innerHeight);
+});
+
+const clock = new THREE.Clock();
+function animate(){
+  const t = clock.getElapsedTime();
+  cakeGroup.rotation.y += 0.004;
+  cakeGroup.position.y = -0.8 + Math.sin(t*0.8)*0.15;
+
+  balloons.forEach(b=>{
+    b.position.y += Math.sin(t*b.userData.speed + b.userData.phase)*0.003;
+    b.rotation.y += 0.002;
+  });
+  shapes.forEach(s=>{
+    s.rotation.x += s.userData.spin;
+    s.rotation.y += s.userData.spin*1.3;
+    s.position.y += Math.sin(t*s.userData.speed + s.userData.phase)*0.004;
+  });
+
+  stars.rotation.y += 0.0006;
+
+  camera.position.x += (targetRotY*4 - camera.position.x)*0.03;
+  camera.position.y += (-targetRotX*3 - camera.position.y)*0.03;
+  camera.position.z = 14 - scrollT*6;
+  camera.rotation.z = targetRotY*0.05;
+  camera.lookAt(0,0,0);
+
+  renderer.render(scene, camera);
+  requestAnimationFrame(animate);
+}
+animate();
+
+window.addEventListener('resize', ()=>{
+  camera.aspect = innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+/* ============================================================
+   GSAP SCROLL TRIGGERS — kinetic parallax
+============================================================ */
+gsap.registerPlugin(ScrollTrigger);
+
+function playIntro(){
+  gsap.from('#hero h1 span', {y:120, opacity:0, duration:1, stagger:.15, ease:'back.out(1.6)'});
+  gsap.from('.tag-line', {scale:0, duration:.7, delay:.5, ease:'elastic.out(1,0.6)'});
+  gsap.from('.kicker', {opacity:0, y:-20, duration:.6, delay:.2});
+}
+
+gsap.utils.toArray('.tilt-card').forEach((card,i)=>{
+  gsap.from(card, {
+    y:80, opacity:0, rotate: i%2===0? -6:6, duration:.8, ease:'power3.out',
+    scrollTrigger:{trigger:card, start:'top 88%'}
+  });
+});
+
+gsap.from('#finale .section-title, #finale .section-sub, #dropBtn', {
+  y:60, opacity:0, duration:.9, stagger:.15, ease:'power3.out',
+  scrollTrigger:{trigger:'#finale', start:'top 70%'}
+});
+
+/* ============================================================
+   TILT ON CARDS (vanilla, mouse-follow 3D)
+============================================================ */
+document.querySelectorAll('.tilt-card').forEach(card=>{
+  card.addEventListener('mousemove', e=>{
+    const r = card.getBoundingClientRect();
+    const px = (e.clientX - r.left)/r.width;
+    const py = (e.clientY - r.top)/r.height;
+    const rotY = (px-0.5)*24;
+    const rotX = (0.5-py)*24;
+    card.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.04)`;
+    card.style.setProperty('--mx', (px*100)+'%');
+    card.style.setProperty('--my', (py*100)+'%');
+  });
+  card.addEventListener('mouseleave', ()=>{
+    card.style.transform = 'rotateX(0) rotateY(0) scale(1)';
+  });
+});
+
+/* ============================================================
+   GRAND FINALE: DROP THE BEAT
+============================================================ */
+let dropped = false;
+document.getElementById('dropBtn').addEventListener('click', function(){
+  if(dropped) return;
+  dropped = true;
+  this.classList.remove('pulsing');
+  this.textContent = "🎉 BOOM!";
+
+  // synth celebratory sound (no external audio files needed)
+  playCelebrationSound();
+
+  // screen flash
+  gsap.timeline()
+    .to('#flash', {opacity:.85, duration:.08})
+    .to('#flash', {opacity:0, duration:.6, ease:'power2.out'});
+
+  // background hue shift
+  gsap.to('body', {filter:'hue-rotate(60deg)', duration:1.2, yoyo:true, repeat:1, ease:'power1.inOut'});
+
+  // confetti explosion — multi-burst
+  const duration = 2500;
+  const end = Date.now() + duration;
+  const colors = ['#ff2fa0','#2fd8ff','#d4ff3f','#9b5cff','#ff6a1a'];
+  (function frame(){
+    confetti({particleCount: 6, angle: 60, spread: 65, origin:{x:0}, colors});
+    confetti({particleCount: 6, angle: 120, spread: 65, origin:{x:1}, colors});
+    if(Date.now() < end) requestAnimationFrame(frame);
+  })();
+  setTimeout(()=>{
+    confetti({particleCount: 180, spread: 120, origin:{y:0.6}, colors, startVelocity:55});
+  }, 150);
+
+  // reveal card
+  const card = document.getElementById('revealCard');
+  card.style.display = 'block';
+  gsap.from(card, {y:80, opacity:0, scale:.85, duration:.9, ease:'back.out(1.4)', delay:.3});
+  setTimeout(()=>{
+    card.scrollIntoView({behavior:'smooth', block:'center'});
+  }, 500);
+});
+
+function playCelebrationSound(){
+  try{
+    const ACtx = window.AudioContext || window.webkitAudioContext;
+    const actx = new ACtx();
+    const now = actx.currentTime;
+    const notes = [523.25, 659.25, 783.99, 1046.5]; // C E G C celebratory arpeggio
+    notes.forEach((freq, i)=>{
+      const osc = actx.createOscillator();
+      const gain = actx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0, now + i*0.12);
+      gain.gain.linearRampToValueAtTime(0.22, now + i*0.12 + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + i*0.12 + 0.5);
+      osc.connect(gain).connect(actx.destination);
+      osc.start(now + i*0.12);
+      osc.stop(now + i*0.12 + 0.55);
+    });
+  }catch(e){ /* audio not available — silently ignore */ }
+}
+</script>
+</body>
+</html>
